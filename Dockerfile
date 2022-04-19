@@ -1,4 +1,9 @@
-FROM python:3.8.13-slim
+FROM ubuntu/nginx:1.18-20.04_edge
+#FROM python:3.8.13-slim
+
+EXPOSE 80
+EXPOSE 443
+EXPOSE 5005
 
 RUN apt-get update -qq && \
   apt-get install -y --no-install-recommends \
@@ -9,12 +14,24 @@ RUN apt-get update -qq && \
   python3-dev \
   libpq-dev \
   curl \
+  certbot \
+  python3-certbot-nginx \
+  sudo \
+  vim \
+  systemd \
   && apt-get autoremove -y
+
+#RUN snap install core & snap refresh core
 
 # Add the user
 RUN useradd -ms /bin/bash veetee
+RUN usermod -aG sudo veetee
+RUN echo "veetee ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+
 USER veetee
 WORKDIR /home/veetee
+
+
 
 # Add environment variables. 
 ENV PATH="/home/veetee/miniconda3/bin:${PATH}"
@@ -36,11 +53,15 @@ RUN conda install anaconda python=3.8
 RUN conda install -c anaconda flask daal
 RUN conda init --all
 
-RUN /usr/local/bin/python -m pip install --upgrade pip
+RUN python -m pip install --upgrade pip
 RUN pip3 install dask==2022.02.1 \
 spyder==5.1.5 \
 packaging==21.3
 
 RUN pip3 install -U --user pip && pip3 install rasa[full]
+# Switch back to user root
+#USER root
 
-ENTRYPOINT ["bash"]
+#Configure nginx 
+
+#ENTRYPOINT ["bash"]
