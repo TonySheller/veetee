@@ -7,9 +7,7 @@ RUN apt-get update -qq && \
   python3-venv \
   python3-pip \
   python3-dev \
-  # required by psycopg2 at build and runtime
   libpq-dev \
-  # required for health check
   curl \
   && apt-get autoremove -y
 

@@ -1,8 +1,5 @@
-# veetee
-Intelligent Virtual Teammate - veetee
+# Virtual Teammate Veetee
 
-Task Oriented Dialog System
-- Understand the text
-    - rule based
-    - Neural (DIET for RASA)
-    - 
+## Introduction
+
+*Veetee* is a chatbot engineered as a virtual assistant.  It uses a 
