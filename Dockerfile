@@ -1,10 +1,6 @@
 FROM ubuntu/nginx:1.18-20.04_edge
 #FROM python:3.8.13-slim
 
-EXPOSE 80
-EXPOSE 443
-EXPOSE 5005
-
 RUN apt-get update -qq && \
   apt-get install -y --no-install-recommends \
   curl wget \
@@ -21,24 +17,20 @@ RUN apt-get update -qq && \
   systemd \
   && apt-get autoremove -y
 
-#RUN snap install core & snap refresh core
+COPY ./rasa/index*.html /var/www/html/
 
-# Add the user
 RUN useradd -ms /bin/bash veetee
 RUN usermod -aG sudo veetee
 RUN echo "veetee ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
-
+ADD rasa  ~
 USER veetee
 WORKDIR /home/veetee
-
-
+COPY ./rasa /home/veetee/rasa
+#rasa run -m models --enable-api --cor "*"
 
 # Add environment variables. 
 ENV PATH="/home/veetee/miniconda3/bin:${PATH}"
 ARG PATH="/home/veetee/miniconda3/bin:${PATH}"
-
-
-
 
 RUN wget \
     https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh \
@@ -59,9 +51,8 @@ spyder==5.1.5 \
 packaging==21.3
 
 RUN pip3 install -U --user pip && pip3 install rasa[full]
-# Switch back to user root
-#USER root
 
-#Configure nginx 
+#CMD [service nginx start]
+#&& rasa run -m models --enable-api --cors "*"
 
-#ENTRYPOINT ["bash"]
+ENTRYPOINT sudo service nginx start && rasa run -m models --enable-api --cors "*"
