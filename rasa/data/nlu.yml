@@ -3,19 +3,34 @@ version: "3.1"
 nlu:
 - intent: greet
   examples: |
+    - Hi
+    - Hey
+    - Hi bot
+    - Hey bot
+    - Hello
+    - Good morning
+    - hi again
+    - hi folks
+    - hi Mister
+    - hi pal!
+    - hi there
+    - greetings
+    - hello everybody
+    - hello is anybody there
+    - hello robot
+    - hallo
+    - heeey
+    - hi hi
     - hey
-    - hello
-    - hi
+    - hey hey
     - hello there
-    - good morning
-    - good evening
-    - moin
-    - hey there
-    - let's go
-    - hey dude
-    - goodmorning
-    - goodevening
-    - good afternoon
+    - hi
+    - hello
+    - yo
+    - hola
+    - hi?
+    - hey bot!
+    - hello friend
 
 - intent: goodbye
   examples: |
@@ -29,25 +44,56 @@ nlu:
     - see you around
     - bye bye
     - see you later
+    - ok then you cant help me
+    - that was shit, you're not helping
+    - you can't help me
+    - you can't help me with what i need
+    - i guess you can't help me then
+    - ok i guess you can't help me
+    - that's not what i want
+    - ok, but that doesnt help me
+    - this is leading to nothing
+    - this conversation is not really helpful
+    - you cannot help me with what I want
+    - I think you cant help me
+    - hm i don't think you can do what i want
+    - stop
+    - stop go back
+    - do you get anything?
+    - and you call yourself bot company? pff
+    - and that's it?
+    - nothing else?
 
 - intent: affirm
   examples: |
-    - yes
-    - y
-    - indeed
-    - of course
-    - that sounds good
     - correct
+    - ye
+    - uh yes
+    - let's do it
+    - yeah
+    - uh yes
+    - um yes
+    - yes knocking
+    - that's correct
+    - yes yes
+    - right
+    - yea
+    - yes
+    - yes right
+    - yes and i dont care
+    - right on
+    - i love that
 
 - intent: deny
   examples: |
     - no
-    - n
-    - never
-    - I don't think so
-    - don't like that
-    - no way
-    - not really
+    - no new selection
+    - no thanks
+    - no thank you
+    - uh no
+    - breath no
+    - do you have something else
+    - no this does not work for me
 
 - intent: mood_great
   examples: |
@@ -82,6 +128,7 @@ nlu:
     - extremly sad
     - so saad
     - so sad
+    - OK
 
 - intent: bot_challenge
   examples: |
@@ -89,3 +136,23 @@ nlu:
     - are you a human?
     - am I talking to a bot?
     - am I talking to a human?
+    - who are you?
+
+- intent: check_storage
+  examples: |
+    - Provide drive status.
+    - Provide drive status please
+    - disk status.
+    - storage please
+    - storage status please
+    - How is the storage situation?
+    - Are the drives full?
+    - Any problems with storage?
+    - What's going on with the disk drives?
+
+- intent: give_time
+  examples: |
+    - What time is it?
+    - Can you tell me what time it is
+    - Time please
+    - Tell me the time.

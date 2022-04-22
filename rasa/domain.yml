@@ -3,11 +3,14 @@ version: "3.1"
 intents:
   - greet
   - goodbye
+  - inform
   - affirm
   - deny
   - mood_great
   - mood_unhappy
   - bot_challenge
+  - check_storage
+  - give_time
 
 responses:
   utter_greet:
@@ -29,6 +32,17 @@ responses:
   utter_iamabot:
   - text: "I am a bot, powered by Rasa."
 
+  utter_storage:
+  - text: "One sec' while i check."
+
+  utter_what_else:
+  - text: "What else can I do for you?"
+
+actions:
+  - action_show_time
+  - action_get_storage
+
+
 session_config:
   session_expiration_time: 60
-  carry_over_slots_to_new_session: true
+  carry_over_slots_to_new_session: false

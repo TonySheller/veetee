@@ -3,3 +3,4 @@ docs/*
 *.md
 runVeetee.sh
 LICENSE
+.rasa

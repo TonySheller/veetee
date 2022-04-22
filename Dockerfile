@@ -26,6 +26,9 @@ ADD rasa  ~
 USER veetee
 WORKDIR /home/veetee
 COPY ./rasa /home/veetee/rasa
+RUN sudo chown -R veetee:veetee /home/veetee/rasa
+COPY ./entrypoint.sh /home/veetee
+COPY ./trainrasa.sh /home/veetee
 #rasa run -m models --enable-api --cor "*"
 
 # Add environment variables. 
@@ -38,8 +41,6 @@ RUN wget \
     && bash Miniconda3-latest-Linux-x86_64.sh -b \
     && rm -f Miniconda3-latest-Linux-x86_64.sh 
 
-
-
 # Install for Python 3.8 this way.
 RUN conda install anaconda python=3.8
 RUN conda install -c anaconda flask daal
@@ -51,8 +52,13 @@ spyder==5.1.5 \
 packaging==21.3
 
 RUN pip3 install -U --user pip && pip3 install rasa[full]
-
+RUN sudo chmod a+x /home/veetee/entrypoint.sh
 #CMD [service nginx start]
 #&& rasa run -m models --enable-api --cors "*"
-
-ENTRYPOINT sudo service nginx start && rasa run -m models --enable-api --cors "*"
+WORKDIR /home/veetee/rasa/models
+RUN rm *
+WORKDIR /home/veetee
+RUN rm -rf /home/veetee/rasa/.rasa
+RUN /home/veetee/trainrasa.sh
+#ENTRYPOINT sudo service nginx start && /home/veetee/entrypoint.sh && bash
+ENTRYPOINT sudo service nginx start && /home/veetee/entrypoint.sh && bash
