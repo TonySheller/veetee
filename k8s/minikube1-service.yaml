@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: "2022-04-24T16:33:10Z"
+  labels:
+    app: hello-minikube1
+  name: hello-minikube1
+  namespace: default
+  resourceVersion: "44590"
+  uid: e5fd8966-5949-4307-adcf-5d62aa45e82d
+spec:
+  allocateLoadBalancerNodePorts: true
+  clusterIP: 10.104.122.27
+  clusterIPs:
+  - 10.104.122.27
+  externalTrafficPolicy: Cluster
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - nodePort: 30456
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: hello-minikube1
+  sessionAffinity: None
+  type: LoadBalancer
+status:
+  loadBalancer:
+    ingress:
+    - ip: 127.0.0.1

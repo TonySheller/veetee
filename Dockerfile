@@ -1,6 +1,11 @@
 FROM ubuntu/nginx:1.18-20.04_edge
 #FROM python:3.8.13-slim
 
+EXPOSE 8585
+EXPOSE 80
+EXPOSE 5005
+EXPOSE 5055
+
 RUN apt-get update -qq && \
   apt-get install -y --no-install-recommends \
   curl wget \
@@ -22,7 +27,7 @@ COPY ./rasa/index*.html /var/www/html/
 RUN useradd -ms /bin/bash veetee
 RUN usermod -aG sudo veetee
 RUN echo "veetee ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
-ADD rasa  ~
+#ADD rasa  /home/veetee
 USER veetee
 WORKDIR /home/veetee
 COPY ./rasa /home/veetee/rasa

@@ -1,0 +1,50 @@
+---
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: veetee
+  namespace: veetee
+  labels:
+    app: veetee
+spec:
+  selector:
+    matchLabels:
+      app: veetee
+      tier: web
+  template: # create pods using pod definition in this template
+    metadata:
+      labels:
+        app: veetee
+        tier: web
+    spec:
+      containers:
+      - name: veetee-con
+        image: ashelle5/veetee:0.2
+        ports:
+        - containerPort: 80
+        - containerPort: 5005
+        - containerPort: 5055
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: veeteeweb
+  namespace: veetee
+  labels:
+    app: veetee
+spec:
+  selector:
+    app: veetee
+    tier: web
+  ports:
+  - name: http
+    port: 8080
+    targetPort: 80
+  - name: rasa-server
+    port: 5005
+    targetPort: 5005
+  - name: rasa-action-server
+    port: 5055
+    targetPort: 5055
+  type: LoadBalancer
+  loadBalancerIP: 127.0.0.1
