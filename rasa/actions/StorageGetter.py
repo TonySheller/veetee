@@ -4,14 +4,24 @@ import requests
 
 PROMETHEUS = 'http://localhost:9090/'
 
-end_of_month = datetime.datetime.today().replace(day=1).date()
+class DiskSpaceUsed:
 
-last_day = end_of_month - datetime.timedelta(days=1)
-duration = '[' + str(last_day.day) + 'd]'
+  def __init__(self):
+    '''
+    Could pass in a the parition if needed
+    '''
+    self.used = self.getUsed()  
+  
+  def getUsed(self):
+    '''
+    Get the used space
+    '''
+    response =requests.get(PROMETHEUS + '/api/v1/query', params={'query': '100 - ((node_filesystem_avail_bytes{mountpoint="/data",fstype!="rootfs"} * 100)/node_filesystem_size_bytes{mountpoint="/data",fstype!="rootfs"})'}) 
+    results = response.json()['data']['result']
+    
+    return round(float(results[0]['value'][1]),2)
 
-response =requests.get(PROMETHEUS + '/api/v1/query', params={'query': 'container_cpu_user_seconds_total'}) 
-results = response.json()['data']['result']
-
-print('{:%B %Y}:'.format(last_day))
-for result in results:
-  print(' {metric}: {value[1]}'.format(**result))
+    
+if __name__ == '__main__':
+  dsu = DiskSpaceUsed()
+  print(dsu.used)
