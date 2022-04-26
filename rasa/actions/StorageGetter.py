@@ -2,13 +2,20 @@ import datetime
 import time
 import requests  
 
-PROMETHEUS = 'http://localhost:9090/'
+# Exterenal to the cluster with port-forwarding setup
+#PROMETHEUS = 'http://localhost:9090/'
+
+# Internal to the cluster with no port-forwarding
+PROMETHEUS = 'http://prometheus-server.prometheus.svc.cluster.local/'
 
 class DiskSpaceUsed:
 
   def __init__(self):
     '''
     Could pass in a the parition if needed
+
+    Or get all the paritions of the correct kind
+    
     '''
     self.used = self.getUsed()  
   

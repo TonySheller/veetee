@@ -3,7 +3,23 @@
 This folder will contain the deployment yaml for Veetee.  
 
 The first thing to try would be to use the K8s installed as part of K8s.  
-- Getting a cluster running on Windows 10 with Docker desktop is so easy. This is a great initial start. 
+- [minikube](https://minikube.sigs.k8s.io/docs/start/) is a good way to start.
 
-Now start creating the yaml for the deployment. 
+To run minikube just type `minikube start` after installing.
 
+##Create the namespaces in the k8s cluster
+
+```
+kubectl apply -f prom_namespace.yaml
+kubectl apply -f veetee_namespace.yaml
+
+kubectl get namespace -A
+
+```
+You should see the namespaces list there. now:
+
+```
+
+
+
+```
