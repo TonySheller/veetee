@@ -156,3 +156,9 @@ nlu:
     - Can you tell me what time it is
     - Time please
     - Tell me the time.
+
+- intent: give_python_path
+  examples: |
+    - Python path please
+    - What's the Python path?
+    - Do you know what the python path is?

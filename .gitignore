@@ -1,3 +1,4 @@
 .rasa
 rasa/models/
 **/__pycache__/
+rasa/.rasa/cache/cache.db

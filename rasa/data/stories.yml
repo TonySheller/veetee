@@ -43,3 +43,11 @@ stories:
   - intent: check_storage
   - action: action_get_storage
   - action: utter_what_else
+
+- story: get Python path
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: give_python_path
+  - action: action_print_python_path
+  - action: utter_what_else

@@ -11,6 +11,8 @@ import datetime as dt
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 import requests  
+from actions.StorageGetter import DiskSpaceUsed
+
 
 class ActionShowTime(Action):
     def name(self) -> Text:
@@ -31,16 +33,21 @@ class GetStorage(Action):
     def run(self, dispatcher: CollectingDispatcher,
              tracker: Tracker,
              domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-         PROMETHEUS = 'http://localhost:9090/'
-         response =requests.get(PROMETHEUS + '/api/v1/query', params={'query': '100 - ((node_filesystem_avail_bytes{mountpoint="/data",fstype!="rootfs"} * 100)/node_filesystem_size_bytes{mountpoint="/data",fstype!="rootfs"})'}) 
-         results = response.json()['data']['result']
-         msg = ""
-         percent_used = round(float(results[0]['value'][1]),2)
-         if percent_used < 90:
-             msg = "{} % diskspace used".format(percent_used)
-         else: 
-             msg = "Disk Space is dangerously, with {} % used".format(percent_used)
 
-         dispatcher.utter_message(text=f"{msg}")
+         dispatcher.utter_message(text=f"{DiskSpaceUsed().used}")
+
+         return []
+
+class PrintPythonPath(Action):
+
+    def name(self) -> Text:
+         return "action_print_python_path"
+
+    def run(self, dispatcher: CollectingDispatcher,
+             tracker: Tracker,
+             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+         
+
+         dispatcher.utter_message(text=f"{sys.path}")
 
          return []
