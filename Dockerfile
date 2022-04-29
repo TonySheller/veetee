@@ -1,4 +1,4 @@
-FROM ubuntu/nginx:1.18-20.04_edge
+FROM nginx:latest
 
 EXPOSE 8585
 EXPOSE 80
@@ -13,15 +13,11 @@ RUN apt-get update -qq && \
   python3-pip \
   python3-dev \
   libpq-dev \
-  curl \
-  certbot \
-  python3-certbot-nginx \
   sudo \
   vim \
-  systemd \
   && apt-get autoremove -y
 
-COPY ./rasa/index*.html /var/www/html/
+COPY ./rasa/index*.html /usr/share/nginx/html/
 
 RUN useradd -ms /bin/bash veetee
 RUN usermod -aG sudo veetee
@@ -49,7 +45,7 @@ RUN wget \
     && rm -f Miniconda3-latest-Linux-x86_64.sh 
 
 # Install for Python 3.8 this way.
-RUN conda install anaconda python=3.8
+RUN conda install anaconda python=3.9
 RUN conda install -c anaconda flask daal
 RUN conda init --all
 

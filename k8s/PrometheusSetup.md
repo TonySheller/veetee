@@ -9,12 +9,7 @@ Prometheus is a a monitoring system used mostly for k8s or systems that use cont
 helm install prometheus prometheus-community/prometheus -n prometheus
 kubectl -n prometheus port-forward $(kubectl get pods --namespace prometheus -l "app=prometheus,component=server" -o jsonpath="{.items[0].metadata.name}") 9090
 
-# Better -- get grafana and everything.
-helm install prometheus prometheus-community/kube-prometheus-stack -n prometheus 
-kubectl port-forward deployment/prometheus-grafana 3000 -n prometheus
-at http://localhost:3000
-user admin
-password prom-operator
+
 
 ## Output from doing a helm install
 ```

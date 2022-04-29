@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: veetee-con
-        image: ashelle5/veetee:0.2
+        image: ashelle5/veetee:0.1
         ports:
         - containerPort: 80
         - containerPort: 5005

@@ -23,15 +23,21 @@ class DiskSpaceUsed:
     '''
     Get the used space
     '''
-    response =requests.get(PROMETHEUS + '/api/v1/query', params={'query': '100 - ((node_filesystem_avail_bytes{mountpoint="/"} * 100)/node_filesystem_size_bytes{mountpoint="/"})'}) 
+    response =requests.get(PROMETHEUS + '/api/v1/query', params={'query': '100 - ((node_filesystem_avail_bytes * 100)/node_filesystem_size_bytes)'}) 
     return_me_temp =[]
     results = response.json()['data']['result']
+    file_systems = []
     for result in results:
-        return_me_temp.append([result['metric']['node'], result['metric']['mountpoint'],round(float(result['value'][1]),2)])
-    return_me = ""
+      if result['metric']['device'].startswith('/dev'):
+        if result['metric']['device'] not in file_systems:
+          file_systems.append(result['metric']['device'])
+          return_me_temp.append([result['metric']['node'], result['metric']['mountpoint'],round(float(result['value'][1]),2)])
+    return_me = "\n"
     for item in return_me_temp:
       return_me += "Host {} filesystem '{}' at {:>5.2f} % usage.\n".format(item[0],item[1],item[2])
     return return_me
+
+
 
     
 if __name__ == '__main__':

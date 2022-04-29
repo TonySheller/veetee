@@ -11,6 +11,7 @@ intents:
   - bot_challenge
   - check_storage
   - give_time
+  - give_python_path
 
 responses:
   utter_greet:
@@ -41,6 +42,7 @@ responses:
 actions:
   - action_show_time
   - action_get_storage
+  - action_print_python_path
 
 
 session_config:
