@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: veetee-con
-        image: ashelle5/veetee:0.1
+        image: ashelle5/veetee:1.0
         ports:
         - containerPort: 80
         - containerPort: 5005
@@ -46,5 +46,3 @@ spec:
   - name: rasa-action-server
     port: 5055
     targetPort: 5055
-  type: LoadBalancer
-  loadBalancerIP: 127.0.0.1
