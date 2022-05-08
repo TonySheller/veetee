@@ -89,3 +89,10 @@ stories:
       are you a bot?
     intent: bot_challenge
   - action: utter_iamabot
+
+- story: time challenge
+  steps:
+  - user: |
+      What time is it?
+    intent: give_time
+  - action: action_show_time
